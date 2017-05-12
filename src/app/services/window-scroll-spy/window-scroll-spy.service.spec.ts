@@ -1,4 +1,4 @@
-import { TrackedChange, TrackedChangeEvent, WindowScrollSpyService } from './window-scroll-spy.service';
+import { WindowScrollSpyService } from './window-scroll-spy.service';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 describe('WindowScrollSpyService', () => {
@@ -17,39 +17,9 @@ describe('WindowScrollSpyService', () => {
     });
 
     it('should get/set observables', () => {
-        service.setObservable(testKey, testObs);
-        const testSubject = service.getObservable(testKey);
+        service.setWindowScrollStream(testObs);
+        const testSubject = service.getWindowScrollStream();
 
         expect(testSubject).toBe(testObs);
-    });
-
-    it('should delete observables', () => {
-        service.setObservable(testKey, testObs);
-
-        let testSubject = service.getObservable(testKey);
-        expect(testSubject).toBeDefined();
-
-        service.deleteObservable(testKey);
-        testSubject = service.getObservable(testKey);
-        expect(testSubject).toBeUndefined();
-    });
-
-    it('should emit event on observable being set', () => {
-        service.changes$.subscribe((testSubject: TrackedChangeEvent) => {
-            expect(testSubject.key).toBe(testKey);
-            expect(testSubject.change).toBe(TrackedChange.SET);
-        });
-        service.setObservable(testKey, testObs);
-    });
-
-
-    it('should emit event on observable being deleted', () => {
-        service.setObservable(testKey, testObs);
-
-        service.changes$.subscribe((testSubject: TrackedChangeEvent) => {
-            expect(testSubject.key).toBe(testKey);
-            expect(testSubject.change).toBe(TrackedChange.DELETE);
-        });
-        service.deleteObservable(testKey);
     });
 });
