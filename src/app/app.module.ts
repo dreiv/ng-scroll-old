@@ -4,20 +4,16 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { WindowScrollSpyDirective } from './directives/window-scroll-spy/window-scroll-spy.directive';
-import { ScrollSpyService } from './services/scroll-spy/scroll-spy.service';
+import { WindowScrollSpyService } from './services/window-scroll-spy/window-scroll-spy.service';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        WindowScrollSpyDirective
-    ],
+    declarations: [AppComponent],
     imports: [
         BrowserModule,
         FormsModule,
         HttpModule
     ],
-    providers: [ScrollSpyService],
+    providers: [WindowScrollSpyService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
