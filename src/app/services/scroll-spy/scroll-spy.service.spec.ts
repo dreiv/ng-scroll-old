@@ -1,4 +1,4 @@
-import {ScrollChange, ScrollChangeEvent, ScrollSpyService} from './scroll-spy.service';
+import {TrackedChange, TrackedChangeEvent, ScrollSpyService} from './scroll-spy.service';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 describe('ScrollSpyService', () => {
@@ -35,9 +35,9 @@ describe('ScrollSpyService', () => {
   });
 
   it('should emit event on observable being set', () => {
-    service.changes$.subscribe((testSubject: ScrollChangeEvent) => {
+    service.changes$.subscribe((testSubject: TrackedChangeEvent) => {
       expect(testSubject.key).toBe(testKey);
-      expect(testSubject.change).toBe(ScrollChange.SET);
+      expect(testSubject.change).toBe(TrackedChange.SET);
     });
     service.setObservable(testKey, testObs);
   });
@@ -46,9 +46,9 @@ describe('ScrollSpyService', () => {
   it('should emit event on observable being deleted', () => {
     service.setObservable(testKey, testObs);
 
-    service.changes$.subscribe((testSubject: ScrollChangeEvent) => {
+    service.changes$.subscribe((testSubject: TrackedChangeEvent) => {
       expect(testSubject.key).toBe(testKey);
-      expect(testSubject.change).toBe(ScrollChange.DELETE);
+      expect(testSubject.change).toBe(TrackedChange.DELETE);
     });
     service.deleteObservable(testKey);
   });
