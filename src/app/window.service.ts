@@ -10,15 +10,11 @@ export const ScrollDirection = {
 
 @Injectable()
 export class WindowService {
-  onResize$: Observable<UIEvent>;
   onScroll$: Observable<ScrollDirection>;
   private previousPosition = document.scrollingElement.scrollTop;
 
   constructor() {
-      this.onResize$ = Observable.fromEvent<UIEvent>(window,'resize');
-
       this.onScroll$ = Observable.fromEvent<UIEvent>(window, 'scroll')
-        .takeUntil(this.onResize$)
         .debounceTime(100)
         .map(() => Math.max(Math.min(document.scrollingElement.scrollTop, document.scrollingElement.scrollHeight),0))
         .filter(currentPosition => currentPosition != this.previousPosition)
