@@ -15,9 +15,8 @@ export class WindowService {
 
 	constructor() {
 		this.onScroll$ = Observable.fromEvent<UIEvent>(window, 'scroll')
-			.debounceTime(100)
 			.map(() => Math.max(Math.min(document.scrollingElement.scrollTop, document.scrollingElement.scrollHeight), 0))
-			.filter(currentPosition => currentPosition != this.previousPosition)
+			.filter(currentPosition => currentPosition !== this.previousPosition)
 			.map((currentPosition): ScrollDirection => {
 				const direction = currentPosition > this.previousPosition ? ScrollDirection.Down : ScrollDirection.Up;
 				this.previousPosition = currentPosition;
