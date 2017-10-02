@@ -22,7 +22,7 @@ import { WindowService } from './window.service';
            `]
 })
 export class AppComponent {
-  @HostBinding('class.isOverflowing') private isOverflowing = true;
+  @HostBinding('class.isOverflowing') isOverflowing = true;
 
   scrollDirection = 'scroll';
 
