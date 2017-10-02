@@ -10,7 +10,7 @@ import { ScrollDirection, WindowService } from './window.service';
   styles: [`
    :host(.isOverflowing) {
        display: block;
-       height: 600em;
+       height: 60em;
        background: #def;
    }
    
