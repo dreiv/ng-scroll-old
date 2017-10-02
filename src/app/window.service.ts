@@ -12,11 +12,13 @@ export const ScrollDirection = {
 export class WindowService {
 	onScroll$: Observable<ScrollDirection>;
 	private previousPosition = document.scrollingElement.scrollTop;
+	private isIOS = /iPad|iPhone/.test(navigator.userAgent);
 
 	constructor() {
-		this.onScroll$ = Observable.fromEvent<HTMLElement>(window, 'scroll.scrollTarget.scrollingElement')
-			.map((scrollingEl: HTMLElement): number => {
-				if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+		this.onScroll$ = Observable.fromEvent<UIEvent>(window, 'scroll')
+			.map((): number => {
+			  const scrollingEl = document.scrollingElement;
+				if (this.isIOS) {
 					return Math.max(Math.min(scrollingEl.scrollTop, scrollingEl.scrollHeight), 0);
 				}	else {
 					return scrollingEl.scrollTop;
