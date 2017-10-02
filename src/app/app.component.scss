@@ -19,7 +19,7 @@ header {
   position: fixed;
   top: -$headerHeight;
   will-change: top;
-  transition: top 0.2s ease-in-out;
+  transition: top 0.1s ease-in-out;
   width: 100%;
 
   &.shown {
