@@ -14,11 +14,16 @@ export class WindowService {
 	private previousPosition = document.scrollingElement.scrollTop;
 
 	constructor() {
-		this.onScroll$ = Observable.fromEvent<UIEvent>(window, 'scroll')
-			.debounceTime(100)
-			.map(() => Math.max(Math.min(document.scrollingElement.scrollTop, document.scrollingElement.scrollHeight), 0))
-			.filter(currentPosition => currentPosition !== this.previousPosition)
-			.map((currentPosition): ScrollDirection => {
+		this.onScroll$ = Observable.fromEvent<HTMLElement>(window, 'scroll.scrollTarget.scrollingElement')
+			.map((scrollingEl: HTMLElement): number => {
+				if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+					return Math.max(Math.min(scrollingEl.scrollTop, scrollingEl.scrollHeight), 0);
+				}	else {
+					return scrollingEl.scrollTop;
+				}
+			})
+			.filter((currentPosition: number): boolean => currentPosition !== this.previousPosition)
+			.map((currentPosition: number): ScrollDirection => {
 				const direction = currentPosition > this.previousPosition ? ScrollDirection.Down : ScrollDirection.Up;
 				this.previousPosition = currentPosition;
 
