@@ -11,7 +11,7 @@ export const ScrollDirection = {
 @Injectable()
 export class WindowService {
   onScroll$: Observable<ScrollDirection>;
-  private previousPosition = -1;
+  private previousPosition = -999;
 
   constructor() {
       this.onScroll$ = Observable.fromEvent<UIEvent>(window, 'scroll')
