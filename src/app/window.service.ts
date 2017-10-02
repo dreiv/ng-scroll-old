@@ -11,13 +11,14 @@ export const ScrollDirection = {
 @Injectable()
 export class WindowService {
   onScroll$: Observable<ScrollDirection>;
-  private previousPosition = -999;
+  private previousPosition = document.scrollingElement.scrollTop;
 
   constructor() {
       this.onScroll$ = Observable.fromEvent<UIEvent>(window, 'scroll')
         .debounceTime(100)
-        .map((): ScrollDirection => {
-          const currentPosition = document.scrollingElement.scrollTop;
+        .map(()=> Math.max(Math.min(document.scrollingElement.scrollTop, document.scrollingElement.scrollHeight),0))
+        .filter(currentPosition => currentPosition != this.previousPosition)
+        .map((currentPosition): ScrollDirection => {
           const direction = currentPosition > this.previousPosition ? ScrollDirection.Down : ScrollDirection.Up;
           this.previousPosition = currentPosition;
 
