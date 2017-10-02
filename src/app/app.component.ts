@@ -1,11 +1,11 @@
-import { Component, HostBinding } from '@angular/core';
-import { WindowService } from './window.service';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { ScrollDirection, WindowService } from './window.service';
 
 @Component({
   selector: 'app-root',
   template: `
       <button (click)="isOverflowing = !isOverflowing">Toggle Overflow</button>
-      <h1 class="fixed">{{scrollDirection}}</h1>
+      <h1 class="fixed">{{scrollLog}}</h1>
   `,
   styles: [`
    :host(.isOverflowing) {
@@ -21,12 +21,16 @@ import { WindowService } from './window.service';
    }
            `]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   @HostBinding('class.isOverflowing') isOverflowing = true;
 
-  scrollDirection = 'scroll';
+  scrollLog = 'scroll';
 
-  constructor(private window$: WindowService) {
+  constructor(private window$: WindowService) {}
 
+  ngOnInit(): void {
+      this.window$.onScroll$.subscribe((direction: ScrollDirection) => {
+        this.scrollLog = `scrolling ${direction}`;
+      });
   }
 }
