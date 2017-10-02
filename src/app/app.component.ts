@@ -8,7 +8,7 @@ import { ScrollDirection, WindowService } from './window.service';
 })
 export class AppComponent implements OnInit {
   @HostBinding('class.isOverflowing') isOverflowing = true;
-
+  isHeaderFixed : boolean;
   scrollLog = 'scroll';
 
   constructor(private windowService: WindowService) {}
@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
       this.windowService.onScroll$.subscribe((direction: ScrollDirection) => {
         this.scrollLog = `scrolling ${direction}`;
-        console.log(this.scrollLog);
+        this.isHeaderFixed = direction === ScrollDirection.Up;
       });
   }
 }
