@@ -1,0 +1,17 @@
+:host {
+  transition: height 3s;
+  will-change: height;
+  display: block;
+  height: 0;
+  background: #def;
+
+  &.isOverflowing {
+    height: 60em;
+  }
+}
+
+.log {
+  position: fixed;
+  bottom: 0;
+  background: wheat;
+}

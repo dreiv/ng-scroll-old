@@ -3,39 +3,18 @@ import { ScrollDirection, WindowService } from './window.service';
 
 @Component({
   selector: 'app-root',
-  template: `
-      <input>
-      <button (click)="isOverflowing = !isOverflowing">Toggle Overflow</button>
-      <h1 class="fixed">{{scrollLog}}</h1>
-  `,
-  styles: [`
-   :host {
-      transition: height 3s;
-      will-change: height;
-      display: block;
-      height: 0;
-      background: #def;
-   }
-   :host(.isOverflowing) {
-       height: 60em;
-   }
-   
-   .fixed {
-    position: fixed;
-    bottom: 0;
-    background: wheat;
-   }
-   `]
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
   @HostBinding('class.isOverflowing') isOverflowing = true;
 
   scrollLog = 'scroll';
 
-  constructor(private window$: WindowService) {}
+  constructor(private windowService: WindowService) {}
 
   ngOnInit(): void {
-      this.window$.onScroll$.subscribe((direction: ScrollDirection) => {
+      this.windowService.onScroll$.subscribe((direction: ScrollDirection) => {
         this.scrollLog = `scrolling ${direction}`;
         console.log(this.scrollLog);
       });
