@@ -1,13 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
+import { WindowService } from './window.service';
 
 @Component({
   selector: 'app-root',
   template: `
-      app Works!
-      <button (click)="toggleOverflow()">Toggle Overflow</button>
+      <button (click)="isOverflowing = !isOverflowing">Toggle Overflow</button>
+      <h1 class="fixed">{{scrollDirection}}</h1>
   `,
-  styles: ['div {height: 600em; background: #def;}']
+  styles: [`
+   :host(.isOverflowing) {
+       display: block;
+       height: 600em;
+       background: #def;
+   }
+   
+   .fixed {
+    position: fixed;
+    bottom: 0;
+    background: wheat;
+   }
+           `]
 })
 export class AppComponent {
-  HostBind('class.isOverflowing')isOverflowing: boolean;
+  @HostBinding('class.isOverflowing') private isOverflowing = true;
+
+  scrollDirection = 'scroll';
+
+  constructor(private window$: WindowService) {
+
+  }
 }
