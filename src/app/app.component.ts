@@ -8,10 +8,16 @@ import { ScrollDirection, WindowService } from './window.service';
       <h1 class="fixed">{{scrollLog}}</h1>
   `,
   styles: [`
+   :host {
+      padding-top: 20em;
+      transition: height 3s;
+      will-change: height;
+      display: block;
+      height: 0;
+      background: #def;
+   }
    :host(.isOverflowing) {
-       display: block;
        height: 60em;
-       background: #def;
    }
    
    .fixed {
@@ -31,6 +37,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
       this.window$.onScroll$.subscribe((direction: ScrollDirection) => {
         this.scrollLog = `scrolling ${direction}`;
+        console.log(this.scrollLog);
       });
   }
 }
