@@ -19,8 +19,7 @@ export class WindowService {
 		this.previousPosition = sEl.scrollTop;
 		
 		this.onScroll$ = Observable.fromEvent<UIEvent>(window, 'scroll')
-			.map((): number => !this.isIOS ? sEl.scrollTop
-				: Math.max(Math.min(sEl.scrollTop, sEl.scrollHeight - window.innerHeight), 0))
+			.map((): number => this.isIOS ? Math.max(Math.min(sEl.scrollTop, sEl.scrollHeight - window.innerHeight), 0) : sEl.scrollTop)
 			.filter((currentPosition: number): boolean => currentPosition !== this.previousPosition)
 			.map((currentPosition: number): ScrollDirection => {
 				const direction = currentPosition > this.previousPosition ? ScrollDirection.Down : ScrollDirection.Up;
