@@ -1,8 +1,7 @@
 <header [class.shown]="isHeaderShown">
     <ng-container *ngIf="isHeaderShown">
-        hello I'm a header
+        <input> hello I'm a header
     </ng-container>
 </header>
-<input>
 <button (click)="isOverflowing = !isOverflowing">Toggle Content Overflow</button>
 <h1 class="log">{{scrollLog}}</h1>
