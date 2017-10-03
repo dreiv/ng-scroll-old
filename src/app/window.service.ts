@@ -16,7 +16,6 @@ export class WindowService {
 
 	constructor() {
 		const sEl = document.scrollingElement;
-		this.previousPosition = sEl.scrollTop;
 		
 		this.onScroll$ = Observable.fromEvent<UIEvent>(window, 'scroll')
 			.map((): number => this.isIOS ? Math.max(Math.min(sEl.scrollTop, sEl.scrollHeight - window.innerHeight), 0) : sEl.scrollTop)
