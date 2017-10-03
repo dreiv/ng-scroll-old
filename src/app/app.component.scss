@@ -5,7 +5,7 @@ $headerHeight: 2.5em;
   transition: height 3s;
   will-change: height;
   display: block;
-  height: 0;
+  height: 2em;
   background: #def;
 
   &.isOverflowing {

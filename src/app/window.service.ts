@@ -17,12 +17,8 @@ export class WindowService {
 	constructor() {
 		this.onScroll$ = Observable.fromEvent<UIEvent>(window, 'scroll')
 			.map((): number => {
-			  const scrollingEl = document.scrollingElement;
-				if (this.isIOS) {
-					return Math.max(Math.min(scrollingEl.scrollTop, scrollingEl.scrollHeight), 0);
-				}	else {
-					return scrollingEl.scrollTop;
-				}
+			  const el = document.scrollingElement;
+				return this.isIOS ? Math.max(Math.min(el.scrollTop, el.scrollHeight), 0) : el.scrollTop;
 			})
 			.filter((currentPosition: number): boolean => currentPosition !== this.previousPosition)
 			.map((currentPosition: number): ScrollDirection => {
