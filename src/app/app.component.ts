@@ -1,5 +1,5 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { ScrollDirection, WindowService } from './window.service';
+import {Scroll, ScrollDirection, WindowService} from './window.service';
 
 @Component({
 	selector: 'app-root',
@@ -14,9 +14,9 @@ export class AppComponent implements OnInit {
 	constructor(private windowService: WindowService) {}
 
 	ngOnInit(): void {
-		this.windowService.onScroll$.subscribe((direction: ScrollDirection) => {
-			this.scrollLog = `scrolling ${direction}`;
-			this.isHeaderShown = direction === ScrollDirection.Up;
+		this.windowService.onScroll$.subscribe((s: Scroll) => {
+			this.scrollLog = `scrolling ${s.direction} ${s.height} ${s.sHeight}`;
+			this.isHeaderShown = s.direction === ScrollDirection.Up;
 		});
 	}
 }

@@ -2,14 +2,12 @@ $headerHeight: 2.5em;
 
 :host {
   padding-top: $headerHeight + .5em;
-  transition: height 3s;
-  will-change: height;
   display: block;
   height: 2em;
   background: #def;
 
   &.isOverflowing {
-    height: 60em;
+    height: 90em;
   }
 }
 
