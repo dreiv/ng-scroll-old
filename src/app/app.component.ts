@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.windowService.onScroll$.subscribe((s: Scroll) => {
-			this.scrollLog = `scrolling ${s.direction} ${s.height} ${s.sHeight}`;
+			this.scrollLog = `scrolling ${s.direction} ${s.height} ${s.sHeight} ${s.cHeight}`;
 			this.isHeaderShown = s.direction === ScrollDirection.Up;
 		});
 	}
