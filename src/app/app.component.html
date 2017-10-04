@@ -1,4 +1,4 @@
-<header [class.shown]="isHeaderShown">
+<header [class.shown]="isHeaderShown" #header>
     <ng-container *ngIf="isHeaderShown">
         <input> hello I'm a header
     </ng-container>

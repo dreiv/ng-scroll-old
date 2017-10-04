@@ -8,10 +8,14 @@ export const ScrollDirection = {
 	Down: 'down' as ScrollDirection
 };
 
+export class ScrollEvent {
+	constructor(public direction: ScrollDirection, public scrollTop: number) {}
+}
+
 @Injectable()
 export class WindowService {
-	onScroll$: Observable<ScrollDirection>;
-	private previousPosition: number;
+	onScroll$: Observable<ScrollEvent>;
+	private previousScrollTop: number;
 	private isIOS = /iPad|iPhone/.test(navigator.userAgent);
 
 	constructor() {
@@ -19,12 +23,12 @@ export class WindowService {
 		
 		this.onScroll$ = Observable.fromEvent<UIEvent>(window, 'scroll')
 			.map((): number => this.isIOS ? Math.max(Math.min(sEl.scrollTop, sEl.scrollHeight - window.innerHeight), 0) : sEl.scrollTop)
-			.filter((currentPosition: number): boolean => currentPosition !== this.previousPosition)
-			.map((currentPosition: number): ScrollDirection => {
-				const direction = currentPosition > this.previousPosition ? ScrollDirection.Down : ScrollDirection.Up;
-				this.previousPosition = currentPosition;
+			.filter((currentScrollTop: number): boolean => currentScrollTop !== this.previousScrollTop)
+			.map((currentScrollTop: number): ScrollEvent => {
+				const direction = currentScrollTop > this.previousScrollTop ? ScrollDirection.Down : ScrollDirection.Up;
+				this.previousScrollTop = currentScrollTop;
 
-				return direction;
+				return new ScrollEvent(direction, currentScrollTop);
 			})
 			.distinctUntilChanged();
 	}

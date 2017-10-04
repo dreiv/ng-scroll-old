@@ -1,5 +1,5 @@
-import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
-import { ScrollDirection, WindowService } from './window.service';
+import {AfterViewInit, Component, ElementRef, HostBinding, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {ScrollDirection, ScrollEvent, WindowService} from './window.service';
 import { Subscription } from "rxjs/Subscription";
 
 @Component({
@@ -8,17 +8,19 @@ import { Subscription } from "rxjs/Subscription";
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
-	@HostBinding('class.isOverflowing') isOverflowing = true;
+  @HostBinding('class.isOverflowing') isOverflowing = true;
 	isHeaderShown = true;
 	scrollLog = 'scroll';
+
+	@ViewChild('header') private header: ElementRef;
 
 	private sub: Subscription;
 	constructor(private windowService: WindowService) {}
 
 	ngOnInit(): void {
-		this.sub = this.windowService.onScroll$.subscribe((direction: ScrollDirection) => {
-      this.isHeaderShown = direction === ScrollDirection.Up;
-      this.scrollLog = `scrolling ${direction}`;
+		this.sub = this.windowService.onScroll$.subscribe((e: ScrollEvent) => {
+      this.isHeaderShown = this.header.nativeElement.clientHeight > e.scrollTop || e.direction === ScrollDirection.Up;
+      this.scrollLog = `scrolling ${e.direction}`;
 		});
 	}
 
