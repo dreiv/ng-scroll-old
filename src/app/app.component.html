@@ -1,4 +1,4 @@
-<header [class.shown]="isHeaderShown" #header>
+<header [style.top.px]="headerOffCanvasShift" #header>
     <ng-container *ngIf="isHeaderShown">
         <input> hello I'm a header
     </ng-container>

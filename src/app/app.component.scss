@@ -1,7 +1,4 @@
-$headerHeight: 2.5em;
-
 :host {
-  padding-top: $headerHeight + .5em;
   display: block;
   height: 2em;
   background: #def;
@@ -13,16 +10,10 @@ $headerHeight: 2.5em;
 
 header {
   background: #f5b335;
-  height: $headerHeight;
   position: fixed;
-  top: -$headerHeight;
   will-change: top;
   transition: top 0.2s ease-in-out;
   width: 100%;
-
-  &.shown {
-    top:0;
-  }
 }
 
 .log {
