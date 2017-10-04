@@ -12,8 +12,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private sub: Subscription;
 
-  constructor(private el: ElementRef, private windowService: WindowService) {
-  }
+  constructor(private el: ElementRef, private windowService: WindowService) { }
 
   ngOnInit() {
     this.sub = this.windowService.onScroll$.subscribe((e: ScrollEvent) => {

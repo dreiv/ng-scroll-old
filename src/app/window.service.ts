@@ -9,8 +9,7 @@ export const ScrollDirection = {
 };
 
 export class ScrollEvent {
-  constructor(public direction: ScrollDirection, public scrollTop: number) {
-  }
+  constructor(public direction: ScrollDirection, public scrollTop: number) { }
 }
 
 @Injectable()
@@ -23,7 +22,7 @@ export class WindowService {
     const sEl = document.scrollingElement;
 
     this.onScroll$ = Observable.fromEvent<UIEvent>(window, 'scroll')
-      .debounceTime(100)
+      .debounceTime(300)
       .map((): number => this.isIOS ? Math.max(Math.min(sEl.scrollTop, sEl.scrollHeight - window.innerHeight), 0) : sEl.scrollTop)
       .filter((currentScrollTop: number): boolean => currentScrollTop !== this.previousScrollTop)
       .map((currentScrollTop: number): ScrollEvent => {
