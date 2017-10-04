@@ -1,7 +1,4 @@
-<header [style.top.px]="headerOffCanvasShift" #header>
-    <ng-container *ngIf="isHeaderShown">
-        <input> hello I'm a header
-    </ng-container>
-</header>
-<button (click)="isOverflowing = !isOverflowing">Toggle Content Overflow</button>
-<h1 class="log">{{scrollLog}}</h1>
+<app-header>
+    <input> hello I'm a header
+</app-header>
+<h1>hello world!</h1>
