@@ -8,7 +8,7 @@ import { ScrollDirection, ScrollEvent, WindowService } from "../window.service";
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  @HostBinding('class.off-canvas') private isOffCanvas: boolean;
+  @HostBinding('class.off-canvas') isOffCanvas: boolean;
 
   private sub: Subscription;
 
